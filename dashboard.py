@@ -183,9 +183,8 @@ class DashBoard:
         self.cursor = self.db.cursor()
     
     def sign_out(self):
-        
         pass
-
+    
 ########### ADDING CASH-IN AND CASH-OUT DATA #################################
     def chose_add(self, *args):
       
@@ -243,6 +242,26 @@ class DashBoard:
 
         if not (sender_name and phone_num and amount and charge and date):
             messagebox.showerror("Error", "All fields must be filled")
+            return
+        
+        if not sender_name.isalpha():
+            messagebox.showerror("Error", "Sender Name should be valid Name")
+            return
+        
+        if not phone_num.isdigit():
+            messagebox.showerror('Error', 'Phone Number should be valid Integers')
+            return
+        
+        if len(phone_num) > 11 or len(phone_num) < 11:
+            messagebox.showerror('Error', 'Please Enter a valid Phone Number')
+            return
+        
+        if not charge.isdigit():
+            messagebox.showerror('Error', 'Charge should be valid Integers')
+            return
+        
+        if not amount.isdigit():
+            messagebox.showerror('Error', 'Amount should be valid Integers')
             return
         
         self.db = mysql.connector.connect(
