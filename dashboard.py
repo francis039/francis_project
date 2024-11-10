@@ -3,6 +3,7 @@ import mysql.connector
 from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import messagebox
+#import front_page as fp
 
 
 class DashBoard:
@@ -172,6 +173,7 @@ class DashBoard:
         self.frame_total.grid_propagate(False)
         lbl = tk.Label(self.frame_total, text='NO ENTRY', font=('Arial', 19, 'bold'), padx=67, pady=110)
         lbl.grid(row=0, column=0)
+                        
 
         self.db = mysql.connector.connect(
             host="localhost",
@@ -181,9 +183,41 @@ class DashBoard:
 
         )
         self.cursor = self.db.cursor()
-    
+
+        self.cursor.execute("CREATE DATABASE IF NOT EXISTS gcash_db")
+        
+        self.cursor.execute("""
+                CREATE TABLE IF NOT EXISTS cash_out(
+                    id INT primary key auto_increment,
+                    Reference_number VARCHAR(13),
+                    Amount INT,
+                    Charge INT,
+                    Date DATE,
+                    Signature VARCHAR(50)
+                )
+        """)
+        self.cursor.execute("""
+
+                CREATE TABLE IF NOT EXISTS cash_in(
+                    id INT primary key auto_increment,
+                    Sender_Name VARCHAR(50),
+                    Phone_number VARCHAR(11),
+                    Amount INT,
+                    Charge INT,
+                    Date DATE
+                )
+        """)
+
+        self.db.commit()
+        self.cursor.close()
+        self.db.close()
+
+
+
+
     def sign_out(self):
-        pass
+        self.root.destroy()
+        
     
 ########### ADDING CASH-IN AND CASH-OUT DATA #################################
     def chose_add(self, *args):
