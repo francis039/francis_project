@@ -53,9 +53,6 @@ btn_login = tk.Button(form_frame, text="Login", bg="#1488CC", borderwidth='4',ac
                       activeforeground="white" ,fg="White", font=('Arial', 11, 'bold'), width=27, command=validate_login)
 btn_login.grid(row=4, column=0, pady=5, padx=5)
 
-# lbl_forgot = tk.Label(form_frame, text="Forgot Password?")
-# lbl_forgot.grid(row=5, column=0, columnspan=2)
-
 email_ent.bind("<Return>", validate_login)
 password_ent.bind("<Return>", validate_login)
 
